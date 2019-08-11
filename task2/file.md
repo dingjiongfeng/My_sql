@@ -58,6 +58,24 @@
 +---------+
 Note:
 学生在每个课中不应被重复计算。
+
+创建表：
+
+create table course{
+    student varchar(50) not null,
+    class varchar(50) not null
+};
+insert into course value('A','Math');
+insert into course value('B','English');
+insert into course value('C','Math');
+insert into course value('D','Biology');
+insert into course value('E','Math');
+insert into course value('F','Computer');
+insert into course value('G','Math');
+insert into course value('H','Math');
+insert into course value('I','Math');
+insert into course value('A','Math');
+
 select dictict class from course group by class having count(*)>=5
 
 ### 项目四：交换工资（难度：简单）
@@ -88,3 +106,219 @@ select dictict class from course group by class having count(*)>=5
 | 3  | C    | f   | 5500   |
 
 | 4  | D    | m   | 500    |
+
+创建表
+create table salsry{
+    id int not null primary key,
+    name varchar(50) not null,
+    sex varchar(50) not null,
+    salasy int not null
+};
+
+insert into salsry value('1','A','m','2500');
+
+insert into salsry value('2','B','f','1500');
+
+insert into salsry value('3','C','m','5500');
+
+insert into salsry value('4','D','f','500');
+
+update salary set sex = case
+ 
+when 'm' then 'f'
+
+when 'f' then 'm'
+
+end
+
+select * from salary;  查询
+
+### 项目五：有趣的电影 （难度：简单）
+某城市开了一家新的电影院，吸引了很多人过来看电影。该电影院特别注意用户体验，专门有个 LED显示板做电影推荐，上面公布着影评和相关电影描述。
+
+作为该电影院的信息部主管，您需要编写一个 SQL查询，找出所有影片描述为非 boring (不无聊) 的并且 id 为奇数 的影片，结果请按等级 rating 排列。
+
+例如，下表 cinema:
+
++---------+-----------+--------------+-----------+
+|   id    | movie     |  description |  rating   |
++---------+-----------+--------------+-----------+
+|   1     | War       |   great 3D   |   8.9     |
+|   2     | Science   |   fiction    |   8.5     |
+|   3     | irish     |   boring     |   6.2     |
+|   4     | Ice song  |   Fantacy    |   8.6     |
+|   5     | House card|   Interesting|   9.1     |
++---------+-----------+--------------+-----------+
+对于上面的例子，则正确的输出是为：
+
++---------+-----------+--------------+-----------+
+|   id    | movie     |  description |  rating   |
++---------+-----------+--------------+-----------+
+|   5     | House card|   Interesting|   9.1     |
+|   1     | War       |   great 3D   |   8.9     |
++---------+-----------+--------------+-----------+
+
+create table cinema{
+    id int not null primary key,
+    movie varchar(50) not null,
+    description varchar(50) not null,
+    rating float not null
+};
+
+insert into salsry value(1,'War','great 3D',8.9);
+
+insert into salsry value(2,'Science','fiction',8.5);
+
+insert into salsry value(3,'irish','boring',6.2);
+
+insert into salsry value(4,'Ice song','Fantacy',8.6);
+
+insert into salsry value(5,'House card','Interesting',9.1);
+
+select * from cinema where description <> "boring" and id%2=1 order by rating desc 
+
+## **2.2 MySQL 基础 （三）- 表联结****#学习内容#**
+* MySQL别名
+* INNER JOIN
+* LEFT JOIN
+* CROSS JOIN
+* 自连接
+* UNION
+* 以上几种方式的区别和联系
+
+## **#作业#**
+### 项目六：组合两张表 （难度：简单）
+
+在数据库中创建表1和表2，并各插入三行数据（自己造）
+表1: Person
++-------------+---------+
+| 列名         | 类型     |
++-------------+---------+
+| PersonId    | int     |
+| FirstName   | varchar |
+| LastName    | varchar |
++-------------+---------+
+PersonId 是上表主键
+
+表2: Address
++-------------+---------+
+| 列名         | 类型    |
++-------------+---------+
+| AddressId   | int     |
+| PersonId    | int     |
+| City        | varchar |
+| State       | varchar |
++-------------+---------+
+AddressId 是上表主键
+
+编写一个 SQL 查询，满足条件：无论 person 是否有地址信息，都需要基于上述两表提供 person 的以下信息：FirstName, LastName, City, State
+
+create table Person{
+    PersonId int not null primary key,
+    FirstName varchar(50) not null,
+    LastName varchar(50) not null,
+};
+
+create table Address{
+    AddressId int not null primary key,
+    PersonId int not null,
+    City varchar(50) not null,
+    State varchar(50) not null,
+};
+
+insert into Person value(1,'ding','jiongfeng');
+
+insert into Person value(2,'zhang',''ling');
+
+insert into Person value(3,'li','lei');
+
+insert into Address value(01,1,'hang zhou','zhejiang');
+
+insert into Address value(02,2,'shao xing','zhejiang');
+
+insert into Address value(03,3,'dong guan','guangdong');
+
+select 
+    firstname,
+    lastname,
+    city,
+    state
+from person p left join address a
+on p.personId = a.personId;
+
+### 项目七：删除重复的邮箱（难度：简单）
+编写一个 SQL 查询，来删除 email 表中所有重复的电子邮箱，重复的邮箱里只保留 **Id ***最小 *的那个。
++----+---------+
+| Id | Email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+Id 是这个表的主键。
+例如，在运行你的查询语句之后，上面的 Person表应返回以下几行:
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | a@b.com |
+| 2  | c@d.com  |
++----+------------------+
+
+delete e1 from email e1, email e2
+
+where e1.email = e2.email and e1.id > e2.id;
+
+### 项目八：从不订购的客户 （难度：简单）
+某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。
+
+Customers 表：
+
++----+-------+
+| Id | Name  |
++----+-------+
+| 1  | Joe   |
+| 2  | Henry |
+| 3  | Sam   |
+| 4  | Max   |
++----+-------+
+Orders 表：
+
++----+------------+
+| Id | CustomerId |
++----+------------+
+| 1  | 3          |
+| 2  | 1          |
++----+------------+
+例如给定上述表格，你的查询应返回：
+
++-----------+
+| Customers |
++-----------+
+| Henry     |
+| Max       |
++-----------+
+
+select name from Customers c left join Orders o
+
+ON c.id = o.customerid
+
+WHERE o.customerid IS NULL;
+
+### 项目九：超过经理收入的员工（难度：简单）
+Employee 表包含所有员工，他们的经理也属于员工。每个员工都有一个 Id，此外还有一列对应员工的经理的 Id。
+
++----+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
++----+-------+--------+-----------+
+给定 Employee 表，编写一个 SQL 查询，该查询可以获取收入超过他们经理的员工的姓名。在上面的表格中，Joe 是唯一一个收入超过他的经理的员工。
+
++----------+
+| Employee |
++----------+
+| Joe      |
++----------+
