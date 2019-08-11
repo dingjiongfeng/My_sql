@@ -42,30 +42,34 @@ RDBMS，是建立在关系模型基础上的数据库，借助于数学概念和
 数据表:表是数据的矩阵。在一个数据库中的表看起来像一个简单的电子表格。
 视图:是从一个或多个表导出的虚拟的表，其内容由查询定义。具有普通表的结构，但是不实现数据存储。
 存储过程:为以后使用而保存的一条 或多条 SQL语句。
+
 1.2 MySQL基础（一）- 查询语句
 SELECT 
     column_1, column_2, ...
 FROM
     table_1
     
-#SELECT和FROM语句是必须的，其他部分是可选的。
+SELECT和FROM语句是必须的，其他部分是可选的。
 [INNER | LEFT |RIGHT] JOIN table_2 ON conditions
-#JOIN 根据某些连接条件从其他表中获取数据
+JOIN 根据某些连接条件从其他表中获取数据
 WHERE
     conditions
-#WHERE 过滤结果集中的行
+WHERE 过滤结果集中的行
 GROUP BY column_1
-#GROUP BY将一组行组合成小分组，并对每个小分组应用聚合函数。
+GROUP BY将一组行组合成小分组，并对每个小分组应用聚合函数。
 HAVING group_conditions
-#HAVING过滤器基于GROUP BY子句定义的小分组
+HAVING过滤器基于GROUP BY子句定义的小分组
 ORDER BY column_1
-#ORDER BY指定用于排序的列的列表。
+ORDER BY指定用于排序的列的列表。
 LIMIT offset, length;
-#LIMIT限制返回行的数量
+LIMIT限制返回行的数量
+
 1.导入示列数据库-教程
+
 2.SQL,MySQL
 SQL 代表结构化查询语言，是一种专门用来与数据库沟通的语言。
 MySQL是一个数据库管理系统，也是一个关系数据库。
+
 3.查询语句 SELECT FROM
 语句解释
 使用SELECT语句从表或视图获取数据。表由行和列组成，如电子表格。 通常，我们只希望看到子集行，列的子集或两者的组合。SELECT语句的结果称为结果集，它是行列表，每行由相同数量的列组成。
