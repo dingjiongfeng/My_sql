@@ -18,13 +18,9 @@
     
 4. 用SQL语句删除表
 
-    语句解释
-    
+    语句解释 
     DELETE
-    
-    DROP
-    
-    TRUNCATE
+    DROP    TRUNCATE
     
     不同方式的区别
     
