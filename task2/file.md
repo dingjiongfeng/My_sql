@@ -322,3 +322,6 @@ Employee 表包含所有员工，他们的经理也属于员工。每个员工�
 +----------+
 | Joe      |
 +----------+
+
+select e.Name as Employee from Employee e1,Employee e2 where e1.ManagerId = e2.Id
+and e1.Salary > e2.Salary
