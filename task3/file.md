@@ -158,6 +158,13 @@ order by score DESC
 | 1               |
 +-----------------+
 
+select distinct l1.Num AS ConsecutiveNums from Logs l1,Logs l2,Logs l3
+
+where l2.Id = l1.Id + 1
+      and l3.Id = l2.Id + 1
+      and l1.Num = l2.Num
+      and l2.Num = l3.Num
+
 ### 项目十四：树节点 （难度：中等）
 对于 **tree** 表，*id* 是树节点的标识，*p_id* 是其父节点的 *id*。
 
@@ -197,6 +204,10 @@ order by score DESC
 **注意**
 如果一个树只有一个节点，只需要输出根节点属性。
 
+select id,() as Type from tree 
+
+
+
 ### 项目十五：至少有五名直接下属的经理 （难度：中等）
 **Employee** 表包含所有员工及其上级的信息。每位员工都有一个Id，并且还有一个对应主管的Id（ManagerId）。
 | 12345678910 | +------+----------+-----------+----------+\|Id    \|Name 	  \|Department \|ManagerId \|+------+----------+-----------+----------+\|101   \|John 	  \|A 	      \|null      \|\|102   \|Dan 	  \|A 	      \|101       \|\|103   \|James 	  \|A 	      \|101       \|\|104   \|Amy 	  \|A 	      \|101       \|\|105   \|Anne 	  \|A 	      \|101       \|\|106   \|Ron 	  \|B 	      \|101       \|+------+----------+-----------+----------+ | 
@@ -207,6 +218,11 @@ order by score DESC
 **注意:**
 没有人向自己汇报。
 
-
+select Name
+from(
+select ManagerId,count(Id) as cou 
+from Employee
+group by ManagerId) m,Employee e
+where m.ManagerId=e.Id and cou>=5
 # 
 
