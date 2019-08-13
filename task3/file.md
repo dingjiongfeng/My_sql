@@ -204,9 +204,21 @@ where l2.Id = l1.Id + 1
 **注意**
 如果一个树只有一个节点，只需要输出根节点属性。
 
-select id,() as Type from tree 
+select id,'Root' as Type from tree where p_id = null
 
+union
 
+select id,'inner' as Type from tree where id in(select distinct p_id from tree where p_id is not null)
+
+and p_id is not null
+
+union
+
+select id,'Leaf' as Type from tree
+
+where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
+
+order by id;
 
 ### 项目十五：至少有五名直接下属的经理 （难度：中等）
 **Employee** 表包含所有员工及其上级的信息。每位员工都有一个Id，并且还有一个对应主管的Id（ManagerId）。
