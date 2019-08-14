@@ -208,15 +208,11 @@ select id,'Root' as Type from tree where p_id = null
 
 union
 
-select id,'inner' as Type from tree where id in(select distinct p_id from tree where p_id is not null)
-
-and p_id is not null
+select id,'inner' as Type from tree where id in(select distinct p_id from tree where p_id is not null) and p_id is not null
 
 union
 
-select id,'Leaf' as Type from tree
-
-where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
+select id,'Leaf' as Type from tree where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
 
 order by id;
 
